@@ -55,21 +55,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
         logAndAppend(ON_START);
     }
+
     // TODO (3) Override onResume, call super.onResume, and call logAndAppend with ON_RESUME
     @Override
     protected void onResume() {
         super.onResume();
-
         logAndAppend(ON_RESUME);
     }
+
     // TODO (4) Override onPause, call super.onPause, and call logAndAppend with ON_PAUSE
     @Override
     protected void onPause() {
         super.onPause();
-
         logAndAppend(ON_PAUSE);
     }
 
@@ -77,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-
         logAndAppend(ON_STOP);
     }
 
@@ -85,12 +83,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-
         logAndAppend(ON_RESTART);
     }
+
     // TODO (7) Override onDestroy, call super.onDestroy, and call logAndAppend with ON_DESTROY
-
-
     /**
      * The final call you receive before your activity is destroyed. This can happen either because
      * the activity is finishing (someone called finish() on it, or because the system is

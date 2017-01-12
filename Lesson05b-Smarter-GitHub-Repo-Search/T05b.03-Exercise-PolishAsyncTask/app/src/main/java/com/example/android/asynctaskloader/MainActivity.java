@@ -21,7 +21,6 @@ import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,7 +36,6 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<String> {
 
-    String jjunest = "jjunest";
     /* A constant to save and restore the URL that is being displayed */
     private static final String SEARCH_QUERY_URL_EXTRA = "query";
 
@@ -79,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements
         /*
          * Initialize the loader
          */
-        Log.d(jjunest,"===this is onCreate() right before initLoader()");
         getSupportLoaderManager().initLoader(GITHUB_SEARCH_LOADER, null, this);
     }
 
@@ -88,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements
      * URL (using {@link NetworkUtils}) for the github repository you'd like to find, displays
      * that URL in a TextView, and finally request that an AsyncTaskLoader performs the GET request.
      */
-//    searchButton 눌렀을 경우 실행되는 함수
     private void makeGithubSearchQuery() {
         String githubQuery = mSearchBoxEditText.getText().toString();
 
@@ -131,10 +127,8 @@ public class MainActivity extends AppCompatActivity implements
         LoaderManager loaderManager = getSupportLoaderManager();
         Loader<String> githubSearchLoader = loaderManager.getLoader(GITHUB_SEARCH_LOADER);
         if (githubSearchLoader == null) {
-            Log.d(jjunest,"===this is githubsearchLoader is null, initLoader() start");
             loaderManager.initLoader(GITHUB_SEARCH_LOADER, queryBundle, this);
         } else {
-            Log.d(jjunest,"===this is githubsearchLoader is not null, restartLoader() start");
             loaderManager.restartLoader(GITHUB_SEARCH_LOADER, queryBundle, this);
         }
     }
@@ -169,16 +163,13 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public Loader<String> onCreateLoader(int id, final Bundle args) {
-        Log.d(jjunest,"===this is onCreateLoader() called new AsyncTaskLoader Created");
         return new AsyncTaskLoader<String>(this) {
 
             // TODO (1) Create a String member variable called mGithubJson that will store the raw JSON
             String mGithubJson;
-
             @Override
             protected void onStartLoading() {
-                Log.d(jjunest,"===this is onStartLoading() in AsyncTaskLoader called");
-                Log.d(jjunest,"===this is changed");
+
                 /* If no arguments were passed, we don't have a query to perform. Simply return. */
                 if (args == null) {
                     return;
@@ -191,24 +182,16 @@ public class MainActivity extends AppCompatActivity implements
                 mLoadingIndicator.setVisibility(View.VISIBLE);
 
                 // TODO (2) If mGithubJson is not null, deliver that result. Otherwise, force a load
-
-                if (mGithubJson != null) {
-                    Log.d(jjunest,"===this is mGithubJson is not null so, deliverResult call()");
-                    Log.d(jjunest, "===this is mGithubJson is not null! right before deleverResult() ");
+                if(mGithubJson != null) {
                     deliverResult(mGithubJson);
-
                 } else {
-                    Log.d(jjunest, "===this is mGithubJson is null! right before forceLoad() ");
                     forceLoad();
                 }
-
-
-//                forceLoad();
             }
 
             @Override
             public String loadInBackground() {
-            Log.d(jjunest,"===this is loadInBackground");
+
                 /* Extract the search query from the args using our constant */
                 String searchQueryUrlString = args.getString(SEARCH_QUERY_URL_EXTRA);
 
@@ -229,19 +212,20 @@ public class MainActivity extends AppCompatActivity implements
             }
 
             // TODO (3) Override deliverResult and store the data in mGithubJson
-            // TODO (4) Call super.deliverResult after storing the data
             @Override
-            public void deliverResult(String githubJson) {
-                Log.d(jjunest, "===this is deleverResult() and githubJson :" + githubJson);
-                mGithubJson = githubJson;
-                super.deliverResult(githubJson);
+            public void deliverResult(String data) {
+                mGithubJson = data;
+
+                // TODO (4) Call super.deliverResult after storing the data
+
+                super.deliverResult(data);
             }
         };
     }
 
     @Override
     public void onLoadFinished(Loader<String> loader, String data) {
-        Log.d(jjunest,"===this is onLoadFinished");
+
         /* When we finish loading, we want to hide the loading indicator from the user. */
         mLoadingIndicator.setVisibility(View.INVISIBLE);
         /*

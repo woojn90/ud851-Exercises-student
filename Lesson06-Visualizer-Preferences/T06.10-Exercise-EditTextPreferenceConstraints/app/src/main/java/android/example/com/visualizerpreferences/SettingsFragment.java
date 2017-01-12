@@ -25,13 +25,12 @@ import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceScreen;
-import android.util.Log;
 import android.widget.Toast;
 
 // TODO (1) Implement OnPreferenceChangeListener
 public class SettingsFragment extends PreferenceFragmentCompat implements
         OnSharedPreferenceChangeListener, Preference.OnPreferenceChangeListener {
-String jjunest ="jjunest";
+
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
 
@@ -53,16 +52,12 @@ String jjunest ="jjunest";
             }
         }
         // TODO (3) Add the OnPreferenceChangeListener specifically to the EditTextPreference
-
-        // COMPLETED (3) Add the OnPreferenceChangeListener specifically to the EditTextPreference
-        // Add the preference listener which checks that the size is correct to the size preference
-        Preference preference = findPreference(getString(R.string.pref_size_key));
-        preference.setOnPreferenceChangeListener(this);
+        Preference p = findPreference(getString(R.string.pref_size_key));
+        p.setOnPreferenceChangeListener(this);
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        Log.d(jjunest,"===this is SharedPreferencechanged in SettingFragment.java");
         // Figure out which preference was changed
         Preference preference = findPreference(key);
         if (null != preference) {
@@ -99,39 +94,27 @@ String jjunest ="jjunest";
     // to a float; if it cannot, show a helpful error message and return false. If it can be converted
     // to a float check that that float is between 0 (exclusive) and 3 (inclusive). If it isn't, show
     // an error message and return false. If it is a valid number, return true.
-    // COMPLETED (2) Override onPreferenceChange. This method should try to convert the new preference value
-    // to a float; if it cannot, show a helpful error message and return false. If it can be converted
-    // to a float check that that float is between 0 (exclusive) and 3 (inclusive). If it isn't, show
-    // an error message and return false. If it is a valid number, return true.
-
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        // In this context, we're using the onPreferenceChange listener for checking whether the
-        // size setting was set to a valid value.
-        Log.d(jjunest,"===this is onPreferenceChange in SettingFragment.java");
-        Toast error = Toast.makeText(getContext(), "Please select a number between 0.1 and 3", Toast.LENGTH_SHORT);
-
-        // Double check that the preference is the size preference
-        String sizeKey = getString(R.string.pref_size_key);
-        if (preference.getKey().equals(sizeKey)) {
-            String stringSize = (String) newValue;
+        Toast toast = Toast.makeText(getContext(), "Please insert a number between 0.1 and 3", Toast.LENGTH_SHORT);
+        if(preference.getKey().equals(getString(R.string.pref_size_key))) {
+            String value = (String) newValue;
+            if(value.equals("")) {
+                value = "1";
+            }
             try {
-                float size = Float.parseFloat(stringSize);
-                // If the number is outside of the acceptable range, show an error.
-                if (size > 3 || size <= 0) {
-                    error.show();
+                float size = Float.parseFloat(value);
+                if(size < 0.1 || 3 < size) {
+                    toast.show();
                     return false;
                 }
-            } catch (NumberFormatException nfe) {
-                // If whatever the user entered can't be parsed to a number, show an error
-                error.show();
+            } catch (NumberFormatException e) {
+                toast.show();
                 return false;
             }
         }
         return true;
     }
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

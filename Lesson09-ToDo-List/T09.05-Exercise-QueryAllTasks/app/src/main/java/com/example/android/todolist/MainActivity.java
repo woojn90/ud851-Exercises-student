@@ -152,15 +152,10 @@ public class MainActivity extends AppCompatActivity implements
                 // TODO (5) Query and load all task data in the background; sort by priority
                 // [Hint] use a try/catch block to catch any errors in loading data
                 try {
-                    return getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI,
-                            null,
-                            null,
-                            null,
-                            TaskContract.TaskEntry.COLUMN_PRIORITY);
-
+                    return getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI, null, null, null, TaskContract.TaskEntry.COLUMN_PRIORITY);
                 } catch (Exception e) {
-                    Log.e(TAG, "Failed to asynchronously load data.");
-                    e.printStackTrace();
+                    Log.e(TAG, "Error to query datas");
+
                     return null;
                 }
             }
