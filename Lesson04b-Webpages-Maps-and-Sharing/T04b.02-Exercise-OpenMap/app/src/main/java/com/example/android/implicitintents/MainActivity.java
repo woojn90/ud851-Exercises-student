@@ -19,13 +19,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import java.net.URL;
+
 public class MainActivity extends AppCompatActivity {
 
-    String jjunest ="jjunest";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,12 +50,14 @@ public class MainActivity extends AppCompatActivity {
      * @param v Button that was clicked.
      */
     public void onClickOpenAddressButton(View v) {
-        // TODO (5) Store an address in a String
-        String addressString = "1600 Amphitheatre Parkway, CA";
-        // TODO (6) Use Uri.parse with the appropriate scheme and query to form the Uri for the address
-        Uri addressUri = Uri.parse("geo:0,0?q=" + addressString);
-        // TODO (7) Replace the Toast with a call to showMap, passing in the Uri from the previous step
-        showMap(addressUri);
+        String addr = "1600 Amphitheatre Parkway, CA";
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("geo")
+                .path("0,0")
+                .query(addr);
+        Uri builtUri = builder.build();
+
+        showMap(builtUri);
     }
 
     /**
@@ -116,20 +118,19 @@ public class MainActivity extends AppCompatActivity {
 
     // TODO (1) Create a method called showMap with a Uri as the single parameter
     // Do steps 2 - 4 within the showMap method
-
-    private void showMap(Uri geoLocation) {
-        // TODO (2) Create an Intent with action type, Intent.ACTION_VIEW
+    private void showMap(Uri uri) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        // TODO (3) Set the data of the Intent to the Uri passed into this method
-        intent.setData(geoLocation);
-        // TODO (4) Verify that this Intent can be launched and then call startActivity
-        // COMPLETED (4) Verify that this Intent can be launched and then call startActivity
-        Log.d(jjunest,"this is intent.resolveActivity :"+intent.resolveActivity(getPackageManager()));
-        if (intent.resolveActivity(getPackageManager()) != null) {
+        intent.setData(uri);
+
+        if(intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }
     }
+        // TODO (2) Create an Intent with action type, Intent.ACTION_VIEW
 
+        // TODO (3) Set the data of the Intent to the Uri passed into this method
+
+        // TODO (4) Verify that this Intent can be launched and then call startActivity
 
 
 }

@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
     // TODO (3) Create an instance variable storing a Cursor called mData
     private Cursor mData;
-
-
     private Button mButton;
 
     // This state is when the word definition is hidden and clicking the button will therefore
@@ -59,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         mButton = (Button) findViewById(R.id.button_next);
 
         // TODO (5) Create and execute your AsyncTask here
-        new WordFetchTask().execute();
+        new AsyncContentProvider().execute();
     }
 
     /**
@@ -100,37 +98,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // TODO (1) Create AsyncTask with the following generic types <Void, Void, Cursor>
+    public class AsyncContentProvider extends AsyncTask<Void, Void, Cursor> {
 
-
-
-    public class WordFetchTask extends AsyncTask<Void, Void, Cursor> {
-
-        // TODO (2) In the doInBackground method, write the code to access the DroidTermsExample
-        // Invoked on a background thread
+    // TODO (2) In the doInBackground method, write the code to access the DroidTermsExample
+    // provider and return the Cursor object
         @Override
         protected Cursor doInBackground(Void... params) {
-            // Make the query to get the data
+            ContentResolver contentResolver = getContentResolver();
 
-            // Get the content resolver
-            ContentResolver resolver = getContentResolver();
-
-            // Call the query method on the resolver with the correct Uri from the contract class
-            Cursor cursor = resolver.query(DroidTermsExampleContract.CONTENT_URI,
-                    null, null, null, null);
-            return cursor;
+            return contentResolver.query(DroidTermsExampleContract.CONTENT_URI, null, null, null, null);
         }
 
-
-        // provider and return the Cursor object
-        // TODO (4) In the onPostExecute method, store the Cursor object in mData
+    // TODO (4) In the onPostExecute method, store the Cursor object in mData
         @Override
         protected void onPostExecute(Cursor cursor) {
             super.onPostExecute(cursor);
 
-            // Set the data for MainActivity
             mData = cursor;
         }
     }
-
-
 }

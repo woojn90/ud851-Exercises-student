@@ -35,7 +35,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 public class VisualizerActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
- String jjunest="jjunest";
+
     private static final int MY_PERMISSION_RECORD_AUDIO_REQUEST_CODE = 88;
     private VisualizerView mVisualizerView;
     private AudioInputReader mAudioInputReader;
@@ -73,7 +73,8 @@ public class VisualizerActivity extends AppCompatActivity implements SharedPrefe
     // class implement OnSharedPreferenceChangedListener
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        Log.d(jjunest,"===this is sharedpreference Changed in VisulizerActivity");
+
+        Log.d("Log", key);
         if (key.equals(getString(R.string.pref_show_bass_key))) {
             mVisualizerView.setShowBass(sharedPreferences.getBoolean(key, getResources().getBoolean(R.bool.pref_show_bass_default)));
         } else if (key.equals(getString(R.string.pref_show_mid_range_key))) {

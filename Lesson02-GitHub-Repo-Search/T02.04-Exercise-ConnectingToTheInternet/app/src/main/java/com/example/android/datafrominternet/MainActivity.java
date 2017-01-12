@@ -15,6 +15,7 @@
  */
 package com.example.android.datafrominternet;
 
+import android.net.Network;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -57,15 +58,13 @@ public class MainActivity extends AppCompatActivity {
         URL githubSearchUrl = NetworkUtils.buildUrl(githubQuery);
         mUrlDisplayTextView.setText(githubSearchUrl.toString());
         // TODO (2) Call getResponseFromHttpUrl and display the results in mSearchResultsTextView
-        String githubSearchResults = null;
-        try{
-            githubSearchResults = NetworkUtils.getResponseFromHttpUrl(githubSearchUrl);
-            mSearchResultsTextView.setText(githubSearchResults);
-        }catch (IOException e){
+        // TODO (3) Surround the call to getResponseFromHttpUrl with a try / catch block to catch an IOException
+
+        try {
+            mSearchResultsTextView.setText(NetworkUtils.getResponseFromHttpUrl(githubSearchUrl));
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
-        // TODO (3) Surround the call to getResponseFromHttpUrl with a try / catch block to catch an IOException
     }
 
     @Override

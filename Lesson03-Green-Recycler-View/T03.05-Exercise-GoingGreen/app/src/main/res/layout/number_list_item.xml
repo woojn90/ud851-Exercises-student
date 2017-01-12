@@ -37,7 +37,6 @@
     <!--TODO (5) Align the TextView in the center vertically-->
     <!--TODO (6) Set the font family to monospace-->
     <!--TODO (7) Set the text color to "#000"-->
-
     <TextView
         android:id="@+id/tv_view_holder_instance"
         style="@style/TextAppearance.AppCompat.Title"
@@ -46,7 +45,6 @@
         android:layout_gravity="center_vertical|end"
         android:fontFamily="monospace"
         android:textColor="#000"
-        tools:text="ViewHolder instance: 7" />
-
+        />
 
 </FrameLayout>
