@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     /*
@@ -13,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
      * getSimpleName as that will greatly help to identify the location from which your logs are
      * being posted.
      */
+String jjunest ="jjunest";
     private static final String TAG = MainActivity.class.getSimpleName();
 
     /*
@@ -40,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mLifecycleDisplay;
 
     // TODO (1) Declare and instantiate an ArrayList of Strings called mLifecycleCallbacks
-
+    private static final ArrayList<String> mLifecycleCallbacks = new ArrayList<>();
     /**
      * Called when the activity is first created. This is where you should do all of your normal
      * static set up: create views, bind data to lists, etc.
@@ -72,9 +75,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // TODO (4) Iterate backwards through mLifecycleCallbacks, appending each String and a newline to mLifecycleDisplay
+        for (int i = mLifecycleCallbacks.size() - 1; i >= 0; i--) {
+            Log.d(jjunest, "this is loop + index " + i +",value :"+mLifecycleCallbacks.get(i));
+            mLifecycleDisplay.append(mLifecycleCallbacks.get(i) + "\n");
+        }
+
 
         // TODO (5) Clear mLifecycleCallbacks after iterating through it
-
+        mLifecycleCallbacks.clear();
         logAndAppend(ON_CREATE);
     }
 
@@ -132,9 +140,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-
+        Log.d(jjunest, "stop() ");
         // TODO (2) Add the ON_STOP String to the front of mLifecycleCallbacks
-
+        mLifecycleCallbacks.add(0, ON_STOP);
+        Log.d(jjunest, "after stop mLifecycleCallbacks index 0"+mLifecycleCallbacks.get(0));
         logAndAppend(ON_STOP);
     }
 
@@ -159,9 +168,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
+        Log.d(jjunest, "destroy() ");
         // TODO (3) Add the ON_DESTROY String to the front of mLifecycleCallbacks
-
+        mLifecycleCallbacks.add(0, ON_DESTROY);
+        Log.d(jjunest, "after destroy mLifecycleCallbacks index 0"+mLifecycleCallbacks.get(0));
         logAndAppend(ON_DESTROY);
     }
 
