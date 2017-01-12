@@ -89,7 +89,9 @@ public class VisualizerActivity extends AppCompatActivity implements SharedPrefe
         } else if (key.equals(getString(R.string.pref_color_key))) {
             loadColorFromPreferences(sharedPreferences);
         } else if (key.equals(getString(R.string.pref_size_key))) {
-            float minSize = Float.parseFloat(sharedPreferences.getString(getString(R.string.pref_size_key), "1.0"));
+            float minSize = Float.parseFloat(
+                    !sharedPreferences.getString(getString(R.string.pref_size_key), "1.0").equals("")
+                    ? sharedPreferences.getString(getString(R.string.pref_size_key), "1.0") : "1");
             mVisualizerView.setMinSizeScale(minSize);
         }
     }
