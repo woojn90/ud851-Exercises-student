@@ -192,14 +192,42 @@ public class TaskContentProvider extends ContentProvider {
     public int update(@NonNull Uri uri, ContentValues values, String selection,
                       String[] selectionArgs) {
 
-        throw new UnsupportedOperationException("Not yet implemented");
+        SQLiteDatabase db = mTaskDbHelper.getWritableDatabase();
+
+        int code = sUriMatcher.match(uri);
+        int retInt;
+
+        switch(code) {
+            case TASK_WITH_ID:
+                String id = uri.getPathSegments().get(1);
+
+                retInt = db.update(TABLE_NAME, values, "id=?", new String[]{id});
+
+                break;
+            default:
+                throw new UnsupportedOperationException("No match Uri: " + uri);
+        }
+
+        if(retInt != 0)
+            getContext().getContentResolver().notifyChange(uri, null);
+
+        return retInt;
     }
 
 
     @Override
     public String getType(@NonNull Uri uri) {
+        int match = sUriMatcher.match(uri);
 
-        throw new UnsupportedOperationException("Not yet implemented");
+        switch(match) {
+            case TASKS:
+                return "vnd.android.cursor.dir" + "/" + TaskContract.AUTHORITY + "/" + TaskContract.PATH_TASKS;
+
+            case TASK_WITH_ID:
+                return "vnd.android.cursor.item" + "/" + TaskContract.AUTHORITY + "/" + TaskContract.PATH_TASKS;
+
+            default:
+                throw new UnsupportedOperationException("No match Uri: " + uri);
+        }
     }
-
 }
