@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void onClickShareTextButton(View v) {
         // TODO (5) Specify a String you'd like to share
-        String text = "hello my name is Heong Kyun Kim, Nice to Meet you! boostcamp fighting"
+        String text = "hello my name is Heong Kyun Kim, Nice to Meet you! boostcamp fighting";
         // TODO (6) Replace the Toast with shareText, passing in the String from step 5
         shareText(text);
     }
