@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2016 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.example.android.background.utilities;
 
 import android.app.Notification;
@@ -21,9 +36,6 @@ import com.example.android.background.R;
 public class NotificationUtils {
 
     private static final int WATER_REMINDER_NOTIFICATION_ID = 1138;
-    /**
-     * This pending intent id is used to uniquely reference the pending intent
-     */
     private static final int WATER_REMINDER_PENDING_INTENT_ID = 3417;
 
     // TODO (7) Create a method called remindUserBecauseCharging which takes a Context.
@@ -32,6 +44,16 @@ public class NotificationUtils {
     // https://developer.android.com/training/notify-user/build-notification.html
     public static void remindUserBecauseCharging(Context context) {
         // TODO (8) In the remindUser method use NotificationCompat.Builder to create a notification
+        // that:
+        // - has a color of R.colorPrimary - use ContextCompat.getColor to get a compatible color
+        // - has ic_drink_notification as the small icon
+        // - uses icon returned by the largeIcon helper method as the large icon
+        // - sets the title to the charging_reminder_notification_title String resource
+        // - sets the text to the charging_reminder_notification_body String resource
+        // - sets the style to NotificationCompat.BigTextStyle().bigText(text)
+        // - sets the notification defaults to vibrate
+        // - uses the content intent returned by the contentIntent helper method for the contentIntent
+        // - automatically cancels the notification when the notification is clicked
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
                 .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
                 .setSmallIcon(R.drawable.ic_drink_notification)
@@ -40,37 +62,24 @@ public class NotificationUtils {
                 .setContentText(context.getString(R.string.charging_reminder_notification_body))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(
                         context.getString(R.string.charging_reminder_notification_body)))
-//               VIBRATION을 넣었으니 Manifest에서 <permission>을 등록해주어야 한다.
                 .setDefaults(Notification.DEFAULT_VIBRATE)
-//                Notification을 실행할 때, Intent를 넣어서 만들어준다. 해당 Intent는 아까 만들엇던 PendingIntent를 의미한다.
                 .setContentIntent(contentIntent(context))
                 .setAutoCancel(true);
+
         // TODO (9) If the build version is greater than JELLY_BEAN, set the notification's priority
         // to PRIORITY_HIGH.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             notificationBuilder.setPriority(Notification.PRIORITY_HIGH);
         }
+
         // TODO (11) Get a NotificationManager, using context.getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
+
         // TODO (12) Trigger the notification by calling notify on the NotificationManager.
+        // Pass in a unique ID of your choosing for the notification and notificationBuilder.build()
         notificationManager.notify(WATER_REMINDER_NOTIFICATION_ID, notificationBuilder.build());
-
-
     }
-    // that:
-    // - has a color of R.colorPrimary - use ContextCompat.getColor to get a compatible color
-    // - has ic_drink_notification as the small icon
-    // - uses icon returned by the largeIcon helper method as the large icon
-    // - sets the title to the charging_reminder_notification_title String resource
-    // - sets the text to the charging_reminder_notification_body String resource
-    // - sets the style to NotificationCompat.BigTextStyle().bigText(text)
-    // - sets the notification defaults to vibrate
-    // - uses the content intent returned by the contentIntent helper method for the contentIntent
-    // - automatically cancels the notification when the notification is clicked
-
-    // Pass in a unique ID of your choosing for the notification and notificationBuilder.build()
-
 
     // TODO (1) Create a helper method called contentIntent with a single parameter for a Context. It
     // should return a PendingIntent. This method will create the pending intent which will trigger when
@@ -94,18 +103,8 @@ public class NotificationUtils {
     }
 
 
-    // - Take the context passed in as a parameter
-    // - Takes an unique integer ID for the pending intent (you can create a constant for
-    //   this integer above
-    // - Takes the intent to open the MainActivity you just created; this is what is triggered
-    //   when the notification is triggered
-    // - Has the flag FLAG_UPDATE_CURRENT, so that if the intent is created again, keep the
-    // intent but update the data
-
-
     // TODO (4) Create a helper method called largeIcon which takes in a Context as a parameter and
     // returns a Bitmap. This method is necessary to decode a bitmap needed for the notification.
-    // resources object and R.drawable.ic_local_drink_black_24px
     private static Bitmap largeIcon(Context context) {
         // TODO (5) Get a Resources object from the context.
         Resources res = context.getResources();
@@ -114,5 +113,4 @@ public class NotificationUtils {
         Bitmap largeIcon = BitmapFactory.decodeResource(res, R.drawable.ic_local_drink_black_24px);
         return largeIcon;
     }
-
 }

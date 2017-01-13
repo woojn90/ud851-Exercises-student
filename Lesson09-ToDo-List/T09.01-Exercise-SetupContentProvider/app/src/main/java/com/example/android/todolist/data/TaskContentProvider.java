@@ -26,7 +26,9 @@ import android.support.annotation.NonNull;
 // TODO (1) Verify that TaskContentProvider extends from ContentProvider and implements required methods
 public class TaskContentProvider extends ContentProvider {
 
+    // Member variable for a TaskDbHelper that's initialized in the onCreate() method
     private TaskDbHelper mTaskDbHelper;
+
     /* onCreate() is where you should initialize anything you’ll need to setup
     your underlying data source.
     In this case, you’re working with a SQLite database, so you’ll need to
@@ -36,9 +38,10 @@ public class TaskContentProvider extends ContentProvider {
     public boolean onCreate() {
         // TODO (2) Complete onCreate() and initialize a TaskDbhelper on startup
         // [Hint] Declare the DbHelper as a global variable
+
         Context context = getContext();
         mTaskDbHelper = new TaskDbHelper(context);
-        return false;
+        return true;
     }
 
 
