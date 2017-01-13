@@ -87,18 +87,31 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
     // TODO (10) Override onOptionsItemSelected
     // TODO (11) Within this method, get the ID from the MenuItem
     // TODO (12) If the ID equals R.id.action_refresh, create and set a new adapter on the RecyclerView and return true
     // TODO (13) For now, for all other IDs, return super.onOptionsItemSelected
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if(id == R.id.action_refresh){
-            mAdapter = new GreenAdapter(NUM_LIST_ITEMS);
-            mNumbersList.setAdapter(mAdapter);
-            return true;
+
+        int itemId = item.getItemId();
+
+        switch (itemId) {
+            /*
+             * When you click the reset menu item, we want to start all over
+             * and display the pretty gradient again. There are a few similar
+             * ways of doing this, with this one being the simplest of those
+             * ways. (in our humble opinion)
+             */
+            case R.id.action_refresh:
+                mAdapter = new GreenAdapter(NUM_LIST_ITEMS);
+                mNumbersList.setAdapter(mAdapter);
+                return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
+
 }

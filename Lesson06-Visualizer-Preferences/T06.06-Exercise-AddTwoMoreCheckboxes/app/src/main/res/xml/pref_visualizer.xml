@@ -2,6 +2,10 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+
+    <!-- TODO (1) Add two more checkboxes for the treble and mid-range -->
+    <!-- COMPLETED (1) Add two more checkboxes for the treble and mid-range -->
     <CheckBoxPreference
         android:defaultValue="@bool/pref_show_bass_default"
         android:key="@string/pref_show_bass_key"
@@ -9,13 +13,12 @@
         android:summaryOn="@string/pref_show_true"
         android:title="@string/pref_show_bass_label" />
 
-    <!-- TODO (1) Add two more checkboxes for the treble and mid-range -->
     <CheckBoxPreference
         android:defaultValue="@bool/pref_show_mid_range_default"
         android:key="@string/pref_show_mid_range_key"
-        android:title="@string/pref_show_mid_range_label"
         android:summaryOff="@string/pref_show_false"
-        android:summaryOn="@string/pref_show_true" />
+        android:summaryOn="@string/pref_show_true"
+        android:title="@string/pref_show_mid_range_label" />
 
     <CheckBoxPreference
         android:defaultValue="@bool/pref_show_treble_default"

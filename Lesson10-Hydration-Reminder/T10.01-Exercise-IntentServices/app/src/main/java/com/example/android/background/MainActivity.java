@@ -83,16 +83,12 @@ public class MainActivity extends AppCompatActivity implements
         if (mToast != null) mToast.cancel();
         mToast = Toast.makeText(this, R.string.water_chug_toast, Toast.LENGTH_SHORT);
         mToast.show();
-
         // TODO (15) Create an explicit intent for WaterReminderIntentService
         Intent incrementWaterCountIntent = new Intent(this, WaterReminderIntentService.class);
-
         // TODO (16) Set the action of the intent to ACTION_INCREMENT_WATER_COUNT
         incrementWaterCountIntent.setAction(ReminderTasks.ACTION_INCREMENT_WATER_COUNT);
-
         // TODO (17) Call startService and pass the explicit intent you just created
         startService(incrementWaterCountIntent);
-
     }
 
     @Override

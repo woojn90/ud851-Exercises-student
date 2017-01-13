@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
 
     // TODO (1) Create a local field member of type SQLiteDatabase called mDb
     private SQLiteDatabase mDb;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,23 +33,20 @@ public class MainActivity extends AppCompatActivity {
         waitlistRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Create an adapter for that cursor to display the data
-        //mAdapter = new GuestListAdapter(this);
+
 
         // TODO (2) Create a WaitlistDbHelper instance, pass "this" to the constructor as context
         WaitlistDbHelper dbHelper = new WaitlistDbHelper(this);
-
         // TODO (3) Get a writable database reference using getWritableDatabase and store it in mDb
         mDb = dbHelper.getWritableDatabase();
-
         // TODO (4) call insertFakeData from TestUtil and pass the database reference mDb
         TestUtil.insertFakeData(mDb);
-
         // TODO (7) Run the getAllGuests function and store the result in a Cursor variable
         Cursor cursor = getAllGuests();
 
+
         // TODO (12) Pass the resulting cursor count to the adapter
         mAdapter = new GuestListAdapter(this, cursor.getCount());
-
         // Link the adapter to the RecyclerView
         waitlistRecyclerView.setAdapter(mAdapter);
 
@@ -78,5 +74,6 @@ public class MainActivity extends AppCompatActivity {
                 WaitlistContract.WaitlistEntry.COLUMN_TIMESTAMP
         );
     }
+
 
 }

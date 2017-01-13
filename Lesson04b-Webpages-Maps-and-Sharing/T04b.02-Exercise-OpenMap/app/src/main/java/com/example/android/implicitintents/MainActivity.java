@@ -19,11 +19,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    String jjunest ="jjunest";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,11 +51,11 @@ public class MainActivity extends AppCompatActivity {
      */
     public void onClickOpenAddressButton(View v) {
         // TODO (5) Store an address in a String
-        String addr = "1600 Amphitheatre Parkway, CA";
+        String addressString = "1600 Amphitheatre Parkway, CA";
         // TODO (6) Use Uri.parse with the appropriate scheme and query to form the Uri for the address
-        Uri uri = Uri.parse("geo:0,0?q="+addr);
+        Uri addressUri = Uri.parse("geo:0,0?q=" + addressString);
         // TODO (7) Replace the Toast with a call to showMap, passing in the Uri from the previous step
-        showMap(uri);
+        showMap(addressUri);
     }
 
     /**
@@ -113,15 +115,21 @@ public class MainActivity extends AppCompatActivity {
 
 
     // TODO (1) Create a method called showMap with a Uri as the single parameter
-    private void showMap(Uri uri) {
-        // Do steps 2 - 4 within the showMap method
+    // Do steps 2 - 4 within the showMap method
+
+    private void showMap(Uri geoLocation) {
         // TODO (2) Create an Intent with action type, Intent.ACTION_VIEW
         Intent intent = new Intent(Intent.ACTION_VIEW);
         // TODO (3) Set the data of the Intent to the Uri passed into this method
-        intent.setData(uri);
+        intent.setData(geoLocation);
         // TODO (4) Verify that this Intent can be launched and then call startActivity
+        // COMPLETED (4) Verify that this Intent can be launched and then call startActivity
+        Log.d(jjunest,"this is intent.resolveActivity :"+intent.resolveActivity(getPackageManager()));
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }
     }
+
+
+
 }

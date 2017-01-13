@@ -38,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
 
     // The current state of the app
     private int mCurrentState;
-
+    private TextView mWordTextView, mDefinitionTextView;
     private Button mButton;
-
+    private int mDefCol, mWordCol;
     // This state is when the word definition is hidden and clicking the button will therefore
     // show the definition
     private final int STATE_HIDDEN = 0;
@@ -49,8 +49,6 @@ public class MainActivity extends AppCompatActivity {
     // advance the app to the next word
     private final int STATE_SHOWN = 1;
 
-    private TextView mWordTextView, mDefinitionTextView;
-    private int mDefCol, mWordCol;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,32 +87,44 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void nextWord() {
+
+
         // TODO (3) Go to the next word in the Cursor, show the next word and hide the definition
-        // Note that you shouldn't try to do this if the cursor hasn't been set yet.
-        // If you reach the end of the list of words, you should start at the beginning again.
         if (mData != null) {
+            // Move to the next position in the cursor, if there isn't one, move to the first
             if (!mData.moveToNext()) {
                 mData.moveToFirst();
             }
+            // Hide the definition TextView
             mDefinitionTextView.setVisibility(View.INVISIBLE);
+
+            // Change button text
             mButton.setText(getString(R.string.show_definition));
 
+            // Get the next word
             mWordTextView.setText(mData.getString(mWordCol));
             mDefinitionTextView.setText(mData.getString(mDefCol));
 
             mCurrentState = STATE_HIDDEN;
         }
+
     }
 
     public void showDefinition() {
+
+
+
         // TODO (4) Show the definition
         if (mData != null) {
+            // Show the definition TextView
             mDefinitionTextView.setVisibility(View.VISIBLE);
 
+            // Change button text
             mButton.setText(getString(R.string.next_word));
 
             mCurrentState = STATE_SHOWN;
         }
+
     }
 
     // Use an async task to do the data fetch off of the main thread.
@@ -145,10 +155,13 @@ public class MainActivity extends AppCompatActivity {
 
             // TODO (2) Initialize anything that you need the cursor for, such as setting up
             // the screen with the first word and setting any other instance variables
+            // Get the column index, in the Cursor, of each piece of data
             mDefCol = mData.getColumnIndex(DroidTermsExampleContract.COLUMN_DEFINITION);
             mWordCol = mData.getColumnIndex(DroidTermsExampleContract.COLUMN_WORD);
 
+            // Set the initial state
             nextWord();
+
         }
     }
 

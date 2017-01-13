@@ -59,6 +59,4 @@ public class SettingsActivity extends AppCompatActivity {
     // TODO (7) Set the root layout of activity_settings to our newly created SettingsFragment
     // and remove the padding.
     // [HINT] Use a <fragment> element in xml
-
-
 }

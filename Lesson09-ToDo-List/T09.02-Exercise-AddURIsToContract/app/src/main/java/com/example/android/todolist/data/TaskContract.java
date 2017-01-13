@@ -30,16 +30,19 @@ public class TaskContract {
         3) Path(s) to the tasks directory
         4) Content URI for data in the TaskEntry class
       */
+
+    // The authority, which is how your code knows which Content Provider to access
     public static final String AUTHORITY = "com.example.android.todolist";
+
+    // The base content URI = "content://" + <authority>
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
+
+    // Define the possible paths for accessing data in this contract
+    // This is the path for the "tasks" directory
     public static final String PATH_TASKS = "tasks";
 
     /* TaskEntry is an inner class that defines the contents of the task table */
     public static final class TaskEntry implements BaseColumns {
-
-        // TaskEntry content URI = base content URI + path
-        public static final Uri CONTENT_URI =
-                BASE_CONTENT_URI.buildUpon().appendPath(PATH_TASKS).build();
 
 
         // Task table and column names

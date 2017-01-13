@@ -47,13 +47,13 @@ public class GuestListAdapter extends RecyclerView.Adapter<GuestListAdapter.Gues
         // TODO (6) Retrieve the id from the cursor and
         long id = mCursor.getLong(mCursor.getColumnIndex(WaitlistContract.WaitlistEntry._ID));
 
+
         // Display the guest name
         holder.nameTextView.setText(name);
         // Display the party count
         holder.partySizeTextView.setText(String.valueOf(partySize));
         // TODO (7) Set the tag of the itemview in the holder to the id
         holder.itemView.setTag(id);
-
     }
 
 

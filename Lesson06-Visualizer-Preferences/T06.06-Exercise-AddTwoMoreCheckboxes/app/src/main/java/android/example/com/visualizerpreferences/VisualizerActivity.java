@@ -52,6 +52,7 @@ public class VisualizerActivity extends AppCompatActivity implements SharedPrefe
     // mVisualizerView to show the current values stored in shared preferences.
     private void setupSharedPreferences() {
         // Get all of the values from shared preferences to set it up
+        // Get all of the values from shared preferences to set it up
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mVisualizerView.setShowBass(sharedPreferences.getBoolean(getString(R.string.pref_show_bass_key),
                 getResources().getBoolean(R.bool.pref_show_bass_default)));

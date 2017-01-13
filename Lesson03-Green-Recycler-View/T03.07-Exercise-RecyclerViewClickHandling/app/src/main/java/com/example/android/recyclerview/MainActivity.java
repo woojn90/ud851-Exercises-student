@@ -36,8 +36,7 @@ public class MainActivity extends AppCompatActivity implements GreenAdapter.List
     private RecyclerView mNumbersList;
 
     // TODO (9) Create a Toast variable called mToast to store the current Toast
-    Toast mToast;
-
+    private Toast mToast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements GreenAdapter.List
         /*
          * The GreenAdapter is responsible for displaying each item in the list.
          */
-        mAdapter = new GreenAdapter(NUM_LIST_ITEMS,this);
+        mAdapter = new GreenAdapter(NUM_LIST_ITEMS, this);
         mNumbersList.setAdapter(mAdapter);
     }
 
@@ -97,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements GreenAdapter.List
              */
             case R.id.action_refresh:
                 // TODO (14) Pass in this as the ListItemClickListener to the GreenAdapter constructor
-                mAdapter = new GreenAdapter(NUM_LIST_ITEMS,this);
+                mAdapter = new GreenAdapter(NUM_LIST_ITEMS, this);
                 mNumbersList.setAdapter(mAdapter);
                 return true;
         }
@@ -108,13 +107,35 @@ public class MainActivity extends AppCompatActivity implements GreenAdapter.List
     // TODO (10) Override ListItemClickListener's onListItemClick method
     // TODO (11) In the beginning of the method, cancel the Toast if it isn't null
     // TODO (12) Show a Toast when an item is clicked, displaying that item number that was clicked
+
+
+
     @Override
-    public void onListItemClick(int i) {
+    public void onListItemClick(int clickedItemIndex) {
+        // COMPLETED (11) In the beginning of the method, cancel the Toast if it isn't null
+        /*
+         * Even if a Toast isn't showing, it's okay to cancel it. Doing so
+         * ensures that our new Toast will show immediately, rather than
+         * being delayed while other pending Toasts are shown.
+         *
+         * Comment out these three lines, run the app, and click on a bunch of
+         * different items if you're not sure what I'm talking about.
+         */
         if (mToast != null) {
             mToast.cancel();
         }
-        String str = "Item #" + i + " clicked.";
-        mToast = Toast.makeText(this, str, Toast.LENGTH_LONG);
+
+        // COMPLETED (12) Show a Toast when an item is clicked, displaying that item number that was clicked
+        /*
+         * Create a Toast and store it in our Toast field.
+         * The Toast that shows up will have a message similar to the following:
+         *
+         *                     Item #42 clicked.
+         */
+        String toastMessage = "Item #" + clickedItemIndex + " clicked.";
+        mToast = Toast.makeText(this, toastMessage, Toast.LENGTH_LONG);
+
         mToast.show();
     }
+
 }
