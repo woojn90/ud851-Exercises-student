@@ -26,9 +26,9 @@ public class MainActivity extends AppCompatActivity {
     private static final int NUM_LIST_ITEMS = 100;
 
     // TODO (2) Create a GreenAdapter variable called mAdapter
+    GreenAdapter mAdapter;
     // TODO (3) Create a RecyclerView variable called mNumbersList
-    private GreenAdapter mAdapter;
-    private RecyclerView mNumbersList;
+    RecyclerView mNumbersList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +43,10 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mNumbersList.setLayoutManager(layoutManager);
 
+
         // TODO (7) Use setHasFixedSize(true) to designate that the contents of the RecyclerView won't change an item's size
         mNumbersList.setHasFixedSize(true);
+
 
         // TODO (8) Store a new GreenAdapter in mAdapter and pass it NUM_LIST_ITEMS
         mAdapter = new GreenAdapter(NUM_LIST_ITEMS);

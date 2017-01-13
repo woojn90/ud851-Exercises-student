@@ -58,40 +58,35 @@ public class MainActivity extends AppCompatActivity {
         URL githubSearchUrl = NetworkUtils.buildUrl(githubQuery);
         mUrlDisplayTextView.setText(githubSearchUrl.toString());
         String githubSearchResults = null;
-        try {
-            githubSearchResults = NetworkUtils.getResponseFromHttpUrl(githubSearchUrl);
-            mSearchResultsTextView.setText(githubSearchResults);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // TODO (4) Create a new GithubQueryTask and call its execute method, passing in the url to query
         new GithubQueryTask().execute(githubSearchUrl);
+        // TODO (4) Create a new GithubQueryTask and call its execute method, passing in the url to query
     }
 
     // TODO (1) Create a class called GithubQueryTask that extends AsyncTask<URL, Void, String>
-    // TODO (2) Override the doInBackground method to perform the query. Return the results. (Hint: You've already written the code to perform the query)
-    // TODO (3) Override onPostExecute to display the results in the TextView
-    class GithubQueryTask extends AsyncTask<URL, Void, String>{
+    public class GithubQueryTask extends AsyncTask<URL, Void, String>{
+
         @Override
-        protected String doInBackground(URL... params) {
-            URL search = params[0];
-            String results = null;
+        protected String doInBackground(URL... urls) {
+            URL searchUrl = urls[0];
+            String githubSearchResults = null;
             try{
-                results = NetworkUtils.getResponseFromHttpUrl(search);
-            } catch (IOException e){
+                githubSearchResults = NetworkUtils.getResponseFromHttpUrl(searchUrl);
+            }catch (IOException e){
                 e.printStackTrace();
             }
-            return results;
+
+            return null;
         }
 
         @Override
         protected void onPostExecute(String s) {
-            if(s != null && !s.equals("")){
+            if(s!=null && !s.equals("")){
                 mSearchResultsTextView.setText(s);
             }
         }
     }
-
+    // TODO (2) Override the doInBackground method to perform the query. Return the results. (Hint: You've already written the code to perform the query)
+    // TODO (3) Override onPostExecute to display the results in the TextView
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
