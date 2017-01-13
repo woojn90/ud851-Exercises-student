@@ -21,11 +21,12 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.content.Context;
 
 // TODO (1) Verify that TaskContentProvider extends from ContentProvider and implements required methods
 public class TaskContentProvider extends ContentProvider {
 
-
+    private TaskDbHelper mTaskDBHelper;
     /* onCreate() is where you should initialize anything you’ll need to setup
     your underlying data source.
     In this case, you’re working with a SQLite database, so you’ll need to
@@ -35,8 +36,9 @@ public class TaskContentProvider extends ContentProvider {
     public boolean onCreate() {
         // TODO (2) Complete onCreate() and initialize a TaskDbhelper on startup
         // [Hint] Declare the DbHelper as a global variable
-
-        return false;
+        Context context = getContext();
+        mTaskDBHelper = new TaskDbHelper(context);
+        return true;
     }
 
 
