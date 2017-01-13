@@ -25,13 +25,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import static com.example.android.todolist.data.TaskContract.TaskEntry.TABLE_NAME;
 
 // Verify that TaskContentProvider extends from ContentProvider and implements required methods
 public class TaskContentProvider extends ContentProvider {
-    String jjunest = "jjunest";
+
     // Define final integer constants for the directory of tasks and a single item.
     // It's convention to use 100, 200, 300, etc for directories,
     // and related ints (101, 102, ..) for items in that directory.
@@ -42,10 +41,9 @@ public class TaskContentProvider extends ContentProvider {
     private static final UriMatcher sUriMatcher = buildUriMatcher();
 
     // Define a static buildUriMatcher method that associates URI's with their int match
-
     /**
-     * Initialize a new matcher object without any matches,
-     * then use .addURI(String authority, String path, int match) to add matches
+     Initialize a new matcher object without any matches,
+     then use .addURI(String authority, String path, int match) to add matches
      */
     public static UriMatcher buildUriMatcher() {
 
@@ -97,7 +95,7 @@ public class TaskContentProvider extends ContentProvider {
                 // Insert new values into the database
                 // Inserting values into tasks table
                 long id = db.insert(TABLE_NAME, null, values);
-                if (id > 0) {
+                if ( id > 0 ) {
                     returnUri = ContentUris.withAppendedId(TaskContract.TaskEntry.CONTENT_URI, id);
                 } else {
                     throw new android.database.SQLException("Failed to insert row into " + uri);
@@ -133,7 +131,7 @@ public class TaskContentProvider extends ContentProvider {
         switch (match) {
             // Query for the tasks directory
             case TASKS:
-                retCursor = db.query(TABLE_NAME,
+                retCursor =  db.query(TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -165,14 +163,11 @@ public class TaskContentProvider extends ContentProvider {
         // Keep track of the number of deleted tasks
         int tasksDeleted; // starts as 0
 
-        Log.d(jjunest,"===this is delete() in ContentProvider and uri is "+uri);
-        Log.d(jjunest,"===this is delete() in ContentProvider and match is "+uri);
         // Write the code to delete a single row of data
         // [Hint] Use selections to delete an item by its row ID
         switch (match) {
             // Handle the single item case, recognized by the ID included in the URI path
             case TASK_WITH_ID:
-                Log.d(jjunest,"===this is delete() in ContentProvider and TASK_WITH_ID is "+TASK_WITH_ID);
                 // Get the task ID from the URI path
                 String id = uri.getPathSegments().get(1);
                 // Use selections/selectionArgs to filter for this ID

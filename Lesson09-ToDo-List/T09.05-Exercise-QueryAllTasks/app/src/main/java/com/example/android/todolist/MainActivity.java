@@ -151,6 +151,7 @@ public class MainActivity extends AppCompatActivity implements
 
                 // TODO (5) Query and load all task data in the background; sort by priority
                 // [Hint] use a try/catch block to catch any errors in loading data
+
                 try {
                     return getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI,
                             null,
@@ -201,4 +202,3 @@ public class MainActivity extends AppCompatActivity implements
         }
 
 }
-

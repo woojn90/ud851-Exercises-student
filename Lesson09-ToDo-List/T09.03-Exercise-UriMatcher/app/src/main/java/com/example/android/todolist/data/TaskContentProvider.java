@@ -38,15 +38,8 @@ public class TaskContentProvider extends ContentProvider {
 
     // TODO (2) Define a static buildUriMatcher method that associates URI's with their int match
     public static UriMatcher buildUriMatcher() {
-
-        // Initialize a UriMatcher with no matches by passing in NO_MATCH to the constructor
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-        /*
-          All paths added to the UriMatcher have a corresponding int.
-          For each kind of uri you may want to access, add the corresponding match with addURI.
-          The two calls below add matches for the task directory and a single item by ID.
-         */
         uriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_TASKS, TASKS);
         uriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_TASKS + "/#", TASK_WITH_ID);
 
